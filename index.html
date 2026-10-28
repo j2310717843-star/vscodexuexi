@@ -3,220 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寄往春天的明信片</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700;900&display=swap');
-
-        :root {
-            --ink: #263d3b;
-            --paper: #f5edda;
-            --coral: #e27d62;
-            --sage: #9eb6a0;
-            --line: rgba(38, 61, 59, 0.28);
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 44px 20px;
-            color: var(--ink);
-            background:
-                radial-gradient(circle at 12% 14%, rgba(226, 125, 98, .26) 0 2px, transparent 3px),
-                radial-gradient(circle at 88% 80%, rgba(158, 182, 160, .35) 0 2px, transparent 3px),
-                #dbe4d4;
-            background-size: 28px 28px, 36px 36px, auto;
-            font-family: 'Noto Serif SC', Georgia, serif;
-        }
-
-        .postcard {
-            position: relative;
-            width: min(960px, 100%);
-            padding: 18px;
-            background: #eadfc8;
-            box-shadow: 18px 20px 0 rgba(38, 61, 59, .13), 0 18px 40px rgba(38, 61, 59, .18);
-            transform: rotate(-1deg);
-            animation: arrive .8s cubic-bezier(.2, .8, .2, 1) both;
-        }
-
-        .postcard::before {
-            content: '';
-            position: absolute;
-            inset: 8px;
-            border: 1px dashed rgba(38, 61, 59, .28);
-            pointer-events: none;
-        }
-
-        .paper {
-            position: relative;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 550px;
-            overflow: hidden;
-            background: var(--paper);
-        }
-
-        .photo {
-            position: relative;
-            min-height: 550px;
-            background: linear-gradient(145deg, rgba(38, 61, 59, .1), rgba(226, 125, 98, .2)),
-                url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1100&q=85') center / cover;
-            border-right: 1px solid var(--line);
-        }
-
-        .photo::after {
-            content: 'SPRING / 2026';
-            position: absolute;
-            left: 28px;
-            bottom: 24px;
-            color: #fff8e9;
-            font: 600 11px/1.2 Georgia, serif;
-            letter-spacing: .2em;
-            text-shadow: 0 1px 8px rgba(0,0,0,.28);
-        }
-
-        .stamp {
-            position: absolute;
-            top: 25px;
-            right: 26px;
-            width: 90px;
-            height: 108px;
-            display: grid;
-            place-items: center;
-            padding: 8px;
-            color: var(--paper);
-            text-align: center;
-            background: var(--coral);
-            outline: 2px dashed var(--paper);
-            outline-offset: -7px;
-            transform: rotate(4deg);
-            font-size: 12px;
-            letter-spacing: .12em;
-        }
-
-        .stamp strong {
-            display: block;
-            margin-bottom: 5px;
-            font-family: 'Ma Shan Zheng', cursive;
-            font-size: 30px;
-            letter-spacing: 0;
-        }
-
-        .message {
-            position: relative;
-            padding: 48px 48px 38px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .eyebrow {
-            margin: 0 0 28px;
-            color: var(--coral);
-            font: 600 12px/1.2 Georgia, serif;
-            letter-spacing: .24em;
-        }
-
-        h1 {
-            max-width: 360px;
-            margin: 0;
-            font-family: 'Ma Shan Zheng', cursive;
-            font-size: clamp(46px, 7vw, 76px);
-            font-weight: 400;
-            line-height: 1.08;
-            letter-spacing: .02em;
-        }
-
-        .date {
-            margin: 14px 0 0;
-            color: var(--coral);
-            font-size: 13px;
-            letter-spacing: .18em;
-        }
-
-        .message-copy {
-            margin: auto 0 32px;
-            max-width: 310px;
-            font-size: 16px;
-            line-height: 2;
-        }
-
-        .message-copy span { color: var(--coral); }
-
-        .address {
-            padding-top: 25px;
-            border-top: 1px solid var(--line);
-            font-size: 14px;
-            line-height: 2.1;
-        }
-
-        .address b { font-size: 12px; letter-spacing: .16em; }
-
-        .postmark {
-            position: absolute;
-            right: 38px;
-            bottom: 126px;
-            width: 90px;
-            height: 90px;
-            display: grid;
-            place-items: center;
-            border: 1px solid var(--coral);
-            border-radius: 50%;
-            color: var(--coral);
-            text-align: center;
-            font: 11px/1.4 Georgia, serif;
-            transform: rotate(-14deg);
-            opacity: .82;
-        }
-
-        .postmark::before, .postmark::after {
-            content: '';
-            position: absolute;
-            width: 126px;
-            border-top: 1px solid var(--coral);
-        }
-        .postmark::before { top: 19px; }
-        .postmark::after { bottom: 19px; }
-
-        @keyframes arrive {
-            from { opacity: 0; transform: translateY(24px) rotate(-4deg); }
-            to { opacity: 1; transform: translateY(0) rotate(-1deg); }
-        }
-
-        @media (max-width: 680px) {
-            body { padding: 22px 12px; }
-            .postcard { padding: 11px; }
-            .paper { grid-template-columns: 1fr; }
-            .photo { min-height: 310px; border-right: 0; border-bottom: 1px solid var(--line); }
-            .message { min-height: 455px; padding: 34px 27px 28px; }
-            .stamp { top: 18px; right: 18px; transform: rotate(4deg) scale(.82); transform-origin: top right; }
-            .message-copy { margin: 42px 0 25px; }
-            .postmark { right: 28px; bottom: 110px; transform: rotate(-14deg) scale(.8); }
-        }
-    </style>
+    <title>中国传统文化故事：悬梁刺股</title>
+    <!-- 引入外部的 css 文件 -->
+    <link rel="stylesheet" href="1.css">
 </head>
 <body>
-    <main class="postcard" aria-label="寄往春天的明信片">
-        <div class="paper">
-            <section class="photo" aria-label="春日风景照片">
-                <div class="stamp"><div><strong>春</strong>POST<br>NO. 0321</div></div>
-            </section>
-            <section class="message">
-                <p class="eyebrow">A LITTLE NOTE FROM HERE</p>
-                <h1>寄往<br>春天</h1>
-                <p class="date">2026. 03. 21</p>
-                <p class="message-copy">风从山谷里寄来一封信，<br>我把想念折好，放进今天的阳光里。<br><span>愿你收到时，正好也在微笑。</span></p>
-                <div class="address"><b>TO</b><br>亲爱的你<br>在每一个值得期待的远方</div>
-                <div class="postmark">邮戳<br>春日限定<br>SPRING MAIL</div>
-            </section>
+
+    <div class="slide-container">
+        <img src="2.jpg" alt="灯笼" class="banner-img">
+
+        <h1>中国传统文化故事:悬梁刺股</h1>
+
+        <div class="content-text">
+            <p>我们伟大的祖国有着非常悠久的历史。按照古代的传统说法，从传说中的黄帝到现在，大约有四千多年的历史，通常叫做“上下五千年”。期间流传有许多的神话，历史故事等。快来一起了解下我国的文化历史吧。</p >
+            <p>悬梁刺股这一历史典故表现了孙敬、苏秦好学勤读的刻苦精神，表明只要付出时间和精力就会有收获的道理，用以激励人发愤读书学习。如果想要把事情做成功，就要下定决心，目标明确。要肯吃苦，肯努力。世上无难事只怕有心人。</p >
         </div>
-    </main>
-</body>
-</html>
-</head>
-<body>
-    
+
+        <hr class="divider">
+
+        <div class="idiom-grid">
+            <div>1. 悬梁刺股</div>
+            <div>2. 画龙点睛</div>
+            <div>3. 铁杵磨针</div>
+            <div>4. 毛遂自荐</div>
+            <div>5. 孔融让梨</div>
+            <div>6. 水滴石穿</div>
+            <div>7. 塞翁失马</div>
+            <div>8. 自相矛盾</div>
+            <div>9. 刻舟求剑</div>
+        </div>
+    </div>
+
 </body>
 </html>

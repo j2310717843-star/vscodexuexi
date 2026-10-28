@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>成都 · 天府之国 | 城市介绍</title>
+<meta name="description" content="成都，一座来了就不想走的城市。大熊猫、火锅、盖碗茶、川剧变脸与2300年建城史。" />
+<style>
+  /* ===================== 基础重置 ===================== */
+  *, *::before, *::after { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui,
+                 -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  /* ===================== 设计变量 ===================== */
+  :root {
+    --ink: #14201b;
+    --ink-soft: #3c4a43;
+    --green: #1f6f54;
+    --green-deep: #0f3229;
+    --red: #d1493c;
+    --gold: #e0a44b;
+    --sand: #f6f1e8;
+    --paper: #fffdf8;
+    --muted: #5d6b64;
+    --radius: 20px;
+    --shadow: 0 22px 46px -22px rgba(20, 32, 27, .38);
+    --container: min(1160px, 92vw);
+  }
+
+  .container { width: var(--container); margin-inline: auto; }
+
+  /* ===================== 导航 ===================== */
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    color: #fff;
+    transition: background .35s ease, color .35s ease, box-shadow .35s ease;
+  }
+  .nav.scrolled {
+    background: rgba(255, 253, 248, .88);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    color: var(--ink);
+    box-shadow: 0 1px 0 rgba(20, 32, 27, .09);
+  }
+  .nav-inner {
+    width: var(--container);
+    margin-inline: auto;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: .04em;
+  }
+  .logo-mark { font-size: 24px; line-height: 1; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    display: block;
+    padding: 8px 15px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    opacity: .88;
+    transition: background .25s ease, opacity .25s ease;
+  }
+  .nav-links a:hover { opacity: 1; background: rgba(255, 255, 255, .16); }
+  .nav.scrolled .nav-links a:hover { background: rgba(20, 32, 27, .07); }
+
+  .menu-btn {
+    display: none;
+    background: none;
+    border: 0;
+    color: inherit;
+    font-size: 22px;
+    line-height: 1;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  /* ===================== Hero ===================== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 120px 6vw 90px;
+    overflow: hidden;
+    background:
+      radial-gradient(1100px 620px at 18% 8%, rgba(224, 164, 75, .30), transparent 62%),
+      radial-gradient(900px 700px at 86% 22%, rgba(31, 111, 84, .58), transparent 66%),
+      linear-gradient(160deg, #0b2620 0%, #123f34 46%, #1f6f54 100%);
+  }
+  /* 竹影点阵纹理 */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, .16) 1px, transparent 1px);
+    background-size: 30px 30px;
+    -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 10%, transparent 74%);
+    mask-image: radial-gradient(circle at 50% 42%, #000 10%, transparent 74%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -30%;
+    width: 900px;
+    height: 900px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(224, 164, 75, .16), transparent 62%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 820px; }
+
+  .hero-kicker {
+    margin: 0 0 18px;
+    font-size: 13px;
+    letter-spacing: .42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(72px, 17vw, 190px);
+    font-weight: 900;
+    letter-spacing: .08em;
+    line-height: 1;
+    background: linear-gradient(180deg, #ffffff 12%, #ffe8b4 88%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 20px 50px rgba(0, 0, 0, .42));
+    padding-left: .08em; /* 抵消字间距造成的偏移 */
+  }
+  .hero-sub {
+    margin: 18px 0 0;
+    font-size: clamp(18px, 2.6vw, 26px);
+    font-weight: 600;
+    letter-spacing: .16em;
+  }
+  .hero-desc {
+    margin: 18px auto 0;
+    max-width: 560px;
+    font-size: clamp(14px, 1.6vw, 16px);
+    color: rgba(255, 255, 255, .78);
+  }
+  .hero-actions {
+    margin-top: 36px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: .06em;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #e0a44b, #d1493c);
+    color: #fff;
+    box-shadow: 0 16px 34px -14px rgba(209, 73, 60, .9);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 22px 40px -14px rgba(209, 73, 60, .95); }
+  .btn-ghost {
+    border: 1.5px solid rgba(255, 255, 255, .5);
+    color: #fff;
+  }
+  .btn-ghost:hover { background: rgba(255, 255, 255, .14); transform: translateY(-3px); }
+
+  .hero-panda {
+    position: absolute;
+    right: 7%;
+    bottom: 13%;
+    font-size: clamp(46px, 6vw, 86px);
+    z-index: 2;
+    animation: float 5.5s ease-in-out infinite;
+    filter: drop-shadow(0 18px 26px rgba(0, 0, 0, .35));
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(-20px) rotate(5deg); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%);
+    font-size: 12px;
+    letter-spacing: .3em;
+    color: rgba(255, 255, 255, .62);
+    animation: bounce 2.4s ease-in-out infinite;
+    z-index: 2;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translate(-50%, 0); opacity: .6; }
+    50%      { transform: translate(-50%, 8px); opacity: 1; }
+  }
+
+  /* Hero 入场动画 */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .hero-kicker { animation: rise .8s .05s both; }
+  .hero h1    { animation: rise .9s .18s both; }
+  .hero-sub   { animation: rise .9s .32s both; }
+  .hero-desc  { animation: rise .9s .44s both; }
+  .hero-actions { animation: rise .9s .56s both; }
+
+  /* ===================== 通用区块 ===================== */
+  .section { padding: clamp(72px, 10vw, 120px) 0; }
+  .section--sand { background: var(--sand); }
+  .section--dark {
+    background: linear-gradient(160deg, #10382e 0%, #0b2620 100%);
+    color: #f2efe6;
+  }
+  .section--dark h2 { color: #fff; }
+  .section--dark .lead { color: rgba(242, 239, 230, .70); }
+  .section--dark .eyebrow { color: var(--gold); }
+
+  .section-head {
+    max-width: 720px;
+    margin-bottom: clamp(34px, 5vw, 58px);
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  h2 {
+    margin: 0;
+    font-size: clamp(28px, 4.2vw, 44px);
+    line-height: 1.25;
+    letter-spacing: -.02em;
+    font-weight: 800;
+  }
+  .lead {
+    margin: 16px 0 0;
+    color: var(--muted);
+    font-size: clamp(15px, 1.6vw, 17px);
+  }
+
+  /* 滚动显现 */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity .75s cubic-bezier(.2, .7, .2, 1),
+                transform .75s cubic-bezier(.2, .7, .2, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ===================== 城市印象 ===================== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+  }
+  .about-text p { margin: 0 0 18px; color: var(--ink-soft); }
+  .about-text p:last-of-type { margin-bottom: 0; }
+
+  .about-list {
+    list-style: none;
+    margin: 26px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .about-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--green);
+  }
+  .about-list li::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: none;
+    background: linear-gradient(135deg, var(--gold), var(--red));
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .stat {
+    background: var(--paper);
+    border: 1px solid rgba(20, 32, 27, .08);
+    border-radius: 18px;
+    padding: 24px 18px;
+    text-align: center;
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .stat:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+  .stat b {
+    display: block;
+    font-size: clamp(24px, 3.2vw, 32px);
+    font-weight: 900;
+    letter-spacing: -.02em;
+    color: var(--green);
+    line-height: 1.2;
+  }
+  .stat span {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: .04em;
+  }
+
+  /* ===================== 卡片网格 ===================== */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid rgba(20, 32, 27, .08);
+    border-radius: var(--radius);
+    padding: 26px 24px 28px;
+    overflow: hidden;
+    transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--gold), var(--red));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .45s cubic-bezier(.2, .7, .2, 1);
+  }
+  .card:hover {
+    transform: translateY(-7px);
+    box-shadow: var(--shadow);
+    border-color: transparent;
+  }
+  .card:hover::after { transform: scaleX(1); }
+
+  .card-icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 16px;
+    background: linear-gradient(140deg, #eaf6f0, #d6ece1);
+  }
+  .card h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -.01em;
+  }
+  .card p {
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .tag {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--green);
+    background: rgba(31, 111, 84, .10);
+  }
+
+  /* 深色区块里的卡片 */
+  .card--dark {
+    background: rgba(255, 255, 255, .06);
+    border-color: rgba(255, 255, 255, .12);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+  .card--dark h3 { color: #fff; }
+  .card--dark p { color: rgba(242, 239, 230, .72); }
+  .card--dark .card-icon {
+    background: linear-gradient(140deg, rgba(224, 164, 75, .26), rgba(209, 73, 60, .26));
+  }
+  .card--dark .tag {
+    color: #ffd68a;
+    background: rgba(224, 164, 75, .16);
+  }
+  .card--dark:hover { border-color: rgba(255, 255, 255, .22); }
+
+  /* ===================== 文化风韵 ===================== */
+  .culture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+  }
+  .culture-item {
+    position: relative;
+    padding: 30px 26px;
+    border-radius: var(--radius);
+    background: linear-gradient(160deg, #fdf9f1, #f4ede0);
+    border: 1px solid rgba(20, 32, 27, .07);
+    overflow: hidden;
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .culture-item:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .culture-item .big {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    font-size: 72px;
+    line-height: 1;
+    opacity: .12;
+    transition: transform .45s ease, opacity .45s ease;
+    pointer-events: none;
+  }
+  .culture-item:hover .big { transform: scale(1.14) rotate(-8deg); opacity: .2; }
+  .culture-item h3 {
+    margin: 0 0 10px;
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--green-deep);
+  }
+  .culture-item p { margin: 0; font-size: 14.5px; color: var(--ink-soft); }
+
+  /* ===================== 影音成都 ===================== */
+  .media-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+  .media-card {
+    margin: 0;
+    padding: 18px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .12);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: transform .35s ease, border-color .35s ease;
+  }
+  .media-card:hover { transform: translateY(-6px); border-color: rgba(255, 255, 255, .24); }
+  .media-card video {
+    display: block;
+    width: 100%;
+    border-radius: 14px;
+    background: #000;
+    aspect-ratio: 16 / 9;
+  }
+  .media-card figcaption {
+    margin-top: 12px;
+    font-size: 13px;
+    letter-spacing: .04em;
+    color: rgba(242, 239, 230, .62);
+  }
+  .media-card--audio { display: flex; flex-direction: column; gap: 10px; }
+  .media-card--audio .media-icon { font-size: 44px; line-height: 1; }
+  .media-card--audio h3 { margin: 0; font-size: 20px; font-weight: 800; color: #fff; }
+  .media-card--audio p { margin: 0; font-size: 14px; line-height: 1.7; color: rgba(242, 239, 230, .72); }
+  .media-card--audio audio { width: 100%; margin-top: 6px; }
+  @media (max-width: 900px) {
+    .media-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===================== 出行指南 ===================== */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .tip {
+    display: flex;
+    gap: 16px;
+    padding: 22px;
+    border-radius: 16px;
+    background: var(--paper);
+    border-left: 4px solid var(--green);
+    box-shadow: 0 12px 28px -22px rgba(20, 32, 27, .6);
+    transition: transform .3s ease, border-color .3s ease;
+  }
+  .tip:hover { transform: translateX(4px); border-left-color: var(--red); }
+  .tip .tip-icon { font-size: 24px; line-height: 1.3; flex: none; }
+  .tip h4 {
+    margin: 0 0 4px;
+    font-size: 15.5px;
+    font-weight: 800;
+  }
+  .tip p { margin: 0; font-size: 13.8px; color: var(--muted); line-height: 1.7; }
+
+  /* ===================== 页脚 ===================== */
+  .footer {
+    background: #0a211b;
+    color: rgba(242, 239, 230, .72);
+    padding: 64px 0 28px;
+    font-size: 14px;
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, .10);
+  }
+  .footer-logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: .05em;
+    margin-bottom: 12px;
+  }
+  .footer-cols {
+    display: flex;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+  .footer-col h5 {
+    margin: 0 0 12px;
+    font-size: 13px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .footer-col a { text-decoration: none; transition: color .25s ease; }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom {
+    padding-top: 24px;
+    text-align: center;
+    font-size: 12.5px;
+    color: rgba(242, 239, 230, .45);
+    letter-spacing: .04em;
+  }
+
+  /* ===================== 响应式 ===================== */
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .hero-panda { display: none; }
+  }
+
+  @media (max-width: 860px) {
+    .menu-btn { display: block; }
+    .nav-links {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      padding: 14px 5vw 26px;
+      background: rgba(255, 253, 248, .97);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      color: var(--ink);
+      box-shadow: 0 24px 34px -24px rgba(0, 0, 0, .45);
+      transform: translateY(-14px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    .nav-links.open { transform: none; opacity: 1; pointer-events: auto; }
+    .nav-links a { padding: 13px 16px; font-size: 16px; border-radius: 12px; }
+    .about-list { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 520px) {
+    .stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stat { padding: 20px 12px; }
+    .hero-actions .btn { padding: 13px 26px; font-size: 14px; }
+    .footer-top { flex-direction: column; gap: 32px; }
+    .footer-cols { gap: 32px; }
+  }
+
+  /* 尊重系统减弱动效设置 */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== 导航 ===================== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo"><span class="logo-mark">🐼</span><span>成都</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">城市印象</a></li>
+      <li><a href="#spots">必去景点</a></li>
+      <li><a href="#food">舌尖美食</a></li>
+      <li><a href="#culture">文化风韵</a></li>
+      <li><a href="#media">影音成都</a></li>
+      <li><a href="#tips">出行指南</a></li>
+    </ul>
+    <button class="menu-btn" id="menuBtn" aria-label="打开菜单" aria-expanded="false">☰</button>
+  </div>
+</nav>
+
+<!-- ===================== Hero ===================== -->
+<header class="hero" id="top">
+  <div class="hero-content">
+    <p class="hero-kicker">Chengdu · 天府之国</p>
+    <h1>成都</h1>
+    <p class="hero-sub">一座来了就不想走的城市</p>
+    <p class="hero-desc">
+      这里有滚来滚去的大熊猫、翻滚的红油火锅、茶馆里一下午的盖碗茶，
+      也有 2300 年未曾改名的城市记忆。
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#spots">开始探索</a>
+      <a class="btn btn-ghost" href="#food">吃点好的</a>
+    </div>
+  </div>
+  <div class="hero-panda" aria-hidden="true">🐼</div>
+  <div class="scroll-hint">向下滚动 ↓</div>
+</header>
+
+<!-- ===================== 城市印象 ===================== -->
+<section class="section section--sand" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">城市印象</span>
+      <h2>慢下来的城市，快起来的味蕾</h2>
+      <p class="lead">成都，简称“蓉”，别称蓉城、锦城，是四川省省会，也是中国最会“生活”的城市之一。</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          公元前四世纪建城以来，成都城名未改、城址未迁，已有 2300 多年建城史。
+          都江堰的水让成都平原“水旱从人，不知饥馑”，于是有了“天府之国”的千年美誉。
+        </p>
+        <p>
+          如今的成都，一边是 IFS 的玻璃幕墙与太古里的潮流店铺，一边是人民公园的盖碗茶和巷子里的麻将声。
+          快与慢在这里并不冲突——上午在写字楼里开视频会，下午就能在竹椅上晒着太阳掏耳朵。
+          这种松弛感，正是成都最迷人的地方。
+        </p>
+        <ul class="about-list">
+          <li>世界美食之都</li>
+          <li>大熊猫的故乡</li>
+          <li>中国最佳旅游城市</li>
+          <li>连续多年上榜“最具幸福感城市”</li>
+        </ul>
+      </div>
+
+      <div class="stats" data-stagger>
+        <div class="stat"><b>2140万+</b><span>常住人口</span></div>
+        <div class="stat"><b>2300+ 年</b><span>建城历史</span></div>
+        <div class="stat"><b>2 座</b><span>国际机场</span></div>
+        <div class="stat"><b>1 个</b><span>世界美食之都</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 必去景点 ===================== -->
+<section class="section" id="spots">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">必去景点</span>
+      <h2>八个地方，读懂成都</h2>
+      <p class="lead">从熊猫基地的清晨，到锦里古街的夜色——这份清单覆盖了成都最经典的打开方式。</p>
+    </div>
+
+    <div class="cards" data-stagger>
+      <article class="card">
+        <div class="card-icon">🐼</div>
+        <h3>成都大熊猫繁育研究基地</h3>
+        <p>看“滚滚”们抱着竹子啃、在草地上打滚。建议早上 7:30 开园就进去，熊猫最有精神，人也最少。</p>
+        <span class="tag">建议 3 小时 · 早去</span>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🏮</div>
+        <h3>宽窄巷子</h3>
+        <p>由宽巷子、窄巷子、井巷子组成的川西院落街区，青砖灰瓦间藏着茶馆、小吃店和文创小铺。</p>
+        <span class="tag">傍晚最出片</span>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🏯</div>
+        <h3>锦里古街</h3>
+        <p>紧邻武侯祠的仿古商业街，红灯笼、糖画、三大炮，夜里亮灯后氛围感拉满。</p>
+        <span class="tag">适合夜逛</span>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">⚔️</div>
+        <h3>武侯祠</h3>
+        <p>中国唯一君臣合祀祠庙，纪念诸葛亮与刘备。红墙夹道、竹影婆娑，是成都最经典的一张照片。</p>
+        <span class="tag">红墙竹影打卡</span>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">📜</div>
+        <h3>杜甫草堂</h3>
+        <p>诗圣杜甫流寓成都时的故居，“安得广厦千万间”就在这里写下。园林清幽，适合慢慢走。</p>
+        <span class="tag">文化控必去</span>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">⛰️</div>
+        <h3>都江堰 · 青城山</h3>
+        <p>两千多年仍在灌溉成都平原的水利工程，加上道教名山青城山的清幽山色，一日可游。</p>
+        <span class="tag">可安排一整天</span>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🛍️</div>
+        <h3>春熙路 · 太古里</h3>
+        <p>成都最繁华的商圈，IFS 楼顶那只“爬楼熊猫”是必拍地标。逛街、看展、喝咖啡一站搞定。</p>
+        <span class="tag">熊猫屁股机位</span>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🍵</div>
+        <h3>人民公园</h3>
+        <p>去鹤鸣茶社点一碗盖碗茶，感受本地人掏耳朵、摆龙门阵的日常——这才是成都的慢。</p>
+        <span class="tag">体验市井生活</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 舌尖美食 ===================== -->
+<section class="section section--dark" id="food">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">舌尖美食</span>
+      <h2>来成都，先学会说“微辣”</h2>
+      <p class="lead">联合国教科文组织授予的“世界美食之都”，川菜的灵魂就在这一口红油与花椒里。</p>
+    </div>
+
+    <div class="cards" data-stagger>
+      <article class="card card--dark">
+        <div class="card-icon">🌶️</div>
+        <h3>麻辣火锅</h3>
+        <p>牛油红锅翻滚，毛肚七上八下、鸭肠十秒即捞。不能吃辣就点鸳鸯锅，没人会笑你。</p>
+        <span class="tag">成都必吃第一位</span>
+      </article>
+
+      <article class="card card--dark">
+        <div class="card-icon">🍢</div>
+        <h3>串串香</h3>
+        <p>自己拿签子涮，最后按签子称重结账。冷锅串串则是煮好泡在红油里，另一种快乐。</p>
+        <span class="tag">按签计费</span>
+      </article>
+
+      <article class="card card--dark">
+        <div class="card-icon">🍜</div>
+        <h3>担担面</h3>
+        <p>面条细薄，配肉臊、芽菜、花生碎，拌开后麻辣鲜香，一小碗刚好过瘾。</p>
+        <span class="tag">小吃经典</span>
+      </article>
+
+      <article class="card card--dark">
+        <div class="card-icon">🥟</div>
+        <h3>龙抄手 · 钟水饺</h3>
+        <p>一个清汤鲜香，一个红油甜辣。去老字号点一份“小吃套餐”，一次尝个遍。</p>
+        <span class="tag">老字号组合</span>
+      </article>
+
+      <article class="card card--dark">
+        <div class="card-icon">🥩</div>
+        <h3>夫妻肺片</h3>
+        <p>牛肉牛杂切片，浇上红油、花椒面与花生碎，麻辣浓香，是最下饭的凉菜之一。</p>
+        <span class="tag">凉菜之王</span>
+      </article>
+
+      <article class="card card--dark">
+        <div class="card-icon">🐰</div>
+        <h3>兔头</h3>
+        <p>成都人的深夜零食，麻辣或五香。吃法有讲究：先掰开、再吸脑花，本地人教你三步搞定。</p>
+        <span class="tag">勇敢者挑战</span>
+      </article>
+
+      <article class="card card--dark">
+        <div class="card-icon">🍝</div>
+        <h3>甜水面</h3>
+        <p>筷子粗的面条，裹着甜酱油、红油和蒜泥，甜中带辣、越嚼越香。</p>
+        <span class="tag">甜辣口必试</span>
+      </article>
+
+      <article class="card card--dark">
+        <div class="card-icon">🍧</div>
+        <h3>冰粉 · 蛋烘糕</h3>
+        <p>吃完火锅来一碗红糖冰粉解辣；街头小推车上的蛋烘糕，奶油肉松味最受欢迎。</p>
+        <span class="tag">甜品收尾</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 文化风韵 ===================== -->
+<section class="section" id="culture">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">文化风韵</span>
+      <h2>三千年蜀地，藏着这些讲究</h2>
+      <p class="lead">川剧、茶馆、蜀锦、熊猫——成都的文化，既有台上的惊艳，也有巷子里的闲适。</p>
+    </div>
+
+    <div class="culture-grid" data-stagger>
+      <div class="culture-item">
+        <span class="big" aria-hidden="true">🎭</span>
+        <h3>川剧变脸</h3>
+        <p>一眨眼换一张脸，最快不到一秒。去锦江剧场或蜀风雅韵看一场，吐火、变脸、滚灯一次看全。</p>
+      </div>
+
+      <div class="culture-item">
+        <span class="big" aria-hidden="true">🍵</span>
+        <h3>茶馆文化</h3>
+        <p>“一市居民半茶客”。竹椅、盖碗、长嘴铜壶，一杯茶可以坐一下午，还有师傅现场掏耳朵。</p>
+      </div>
+
+      <div class="culture-item">
+        <span class="big" aria-hidden="true">🧵</span>
+        <h3>蜀锦蜀绣</h3>
+        <p>蜀锦是中国四大名锦之一，蜀绣以“双面绣”闻名。去蜀锦织绣博物馆，能看到两千年的织造技艺。</p>
+      </div>
+
+      <div class="culture-item">
+        <span class="big" aria-hidden="true">🐼</span>
+        <h3>熊猫文化</h3>
+        <p>大熊猫是成都的城市名片。除了基地，地铁、公交、文创店里到处都是“滚滚”的身影。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 影音成都 ===================== -->
+<section class="section section--dark" id="media">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">影音成都</span>
+      <h2>看一段成都，听一曲蜀韵</h2>
+      <p class="lead">一段宣传片，看尽川剧的惊艳与城市的活力；一首老歌，唱的是苏轼写下的“明月几时有”。</p>
+    </div>
+
+    <div class="media-grid" data-stagger>
+      <figure class="media-card">
+        <video controls preload="metadata" playsinline poster="media/cd1-poster.jpg">
+          <source src="media/cd1.mp4" type="video/mp4">
+          您的浏览器不支持视频标签，<a href="media/cd1.mp4">点这里直接打开视频</a>。
+        </video>
+        <figcaption>成都城市宣传片 · cd1.mp4（5 分 35 秒 · 1280×720）</figcaption>
+      </figure>
+
+      <figure class="media-card media-card--audio">
+        <span class="media-icon" aria-hidden="true">🎵</span>
+        <h3>明月几时有</h3>
+        <p>蔡琴 · 专辑《回到未来》。但愿人长久，千里共婵娟——蜀地文脉里最温柔的一声问候。</p>
+        <audio controls preload="metadata">
+          <source src="media/蔡琴明月几时有.mp3" type="audio/mpeg">
+          您的浏览器不支持音频标签，<a href="media/蔡琴明月几时有.mp3">点这里直接播放</a>。
+        </audio>
+        <figcaption>音频 · 蔡琴明月几时有.mp3（3 分 26 秒）</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 出行指南 ===================== -->
+<section class="section section--sand" id="tips">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">出行指南</span>
+      <h2>出发前，先看这几条</h2>
+      <p class="lead">季节、交通、住宿、避坑——把功课做在前面，玩得更松弛。</p>
+    </div>
+
+    <div class="tips-grid" data-stagger>
+      <div class="tip">
+        <span class="tip-icon">🌤️</span>
+        <div>
+          <h4>最佳季节</h4>
+          <p>3–5 月和 9–11 月最舒服。夏季闷热多雨，冬季阴冷但少见零下，雾天较多。</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-icon">✈️</span>
+        <div>
+          <h4>到达方式</h4>
+          <p>双流国际机场离市区近；天府国际机场较远，可乘地铁 18 号线进城（约 40 分钟）。</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-icon">🚇</span>
+        <div>
+          <h4>市内交通</h4>
+          <p>地铁覆盖主要景点，扫码即可乘车。市区路况较堵，短途建议骑共享单车。</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-icon">🏨</span>
+        <div>
+          <h4>住宿建议</h4>
+          <p>春熙路 / 太古里一带最方便，吃喝玩乐步行可达；想要清静可选锦里、宽窄巷子周边。</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-icon">🌶️</span>
+        <div>
+          <h4>点餐提示</h4>
+          <p>不吃辣一定要主动说“不要辣 / 微辣”。很多店的“微辣”对外地人来说也相当够劲。</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-icon">☔</span>
+        <div>
+          <h4>随身准备</h4>
+          <p>成都多雨且天气多变，随身带把折叠伞。看熊猫、逛古镇建议穿舒适的平底鞋。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 页脚 ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">🐼 成都</div>
+        <p>天府之国，蓉城成都。<br />愿你在这里，慢下来。</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>探索</h5>
+          <ul>
+            <li><a href="#about">城市印象</a></li>
+            <li><a href="#spots">必去景点</a></li>
+            <li><a href="#food">舌尖美食</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>了解</h5>
+          <ul>
+            <li><a href="#culture">文化风韵</a></li>
+            <li><a href="#media">影音成都</a></li>
+            <li><a href="#tips">出行指南</a></li>
+            <li><a href="#top">回到顶部</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 成都城市介绍 · 示例网站，仅供学习与演示使用
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- 1. 导航滚动态 ---------- */
+  var nav = document.getElementById("nav");
+  var onScroll = function () {
+    nav.classList.toggle("scrolled", window.scrollY > 40);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- 2. 移动端菜单 ---------- */
+  var menuBtn = document.getElementById("menuBtn");
+  var navLinks = document.getElementById("navLinks");
+
+  menuBtn.addEventListener("click", function () {
+    var isOpen = navLinks.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", String(isOpen));
+    menuBtn.textContent = isOpen ? "✕" : "☰";
+  });
+
+  navLinks.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") {
+      navLinks.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+      menuBtn.textContent = "☰";
+    }
+  });
+
+  /* ---------- 3. 滚动显现动画 ---------- */
+  var supportsIO = "IntersectionObserver" in window;
+
+  // 给带 data-stagger 的容器子元素依次加延迟
+  document.querySelectorAll("[data-stagger]").forEach(function (group) {
+    Array.prototype.forEach.call(group.children, function (child, i) {
+      child.classList.add("reveal");
+      child.style.transitionDelay = Math.min(i * 80, 480) + "ms";
+    });
+  });
+
+  if (supportsIO) {
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+    );
+
+    document.querySelectorAll(".reveal").forEach(function (el) {
+      io.observe(el);
+    });
+  } else {
+    // 降级方案：直接显示
+    document.querySelectorAll(".reveal").forEach(function (el) {
+      el.classList.add("in");
+    });
+  }
+})();
+</script>
+</body>
+</html>

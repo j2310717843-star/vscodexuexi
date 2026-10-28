@@ -1,0 +1,121 @@
+    <style>
+        body {
+            margin: 0;
+            background: #2fbf8f; /* 绿色背景 */
+            font-family: "Microsoft YaHei", sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            padding: 15px 0 10px;
+            margin: 0;
+            border-bottom: 3px solid #cc3333; /* 标题下方的红线 */
+        }
+
+        .gallery {
+            width: 95%;
+            margin: 30px auto 20px;
+        }
+
+        .item {
+            display: inline-block;
+            text-align: center;
+            margin: 0 15px;
+            vertical-align: top;
+        }
+
+        .item .label {
+            display: block;
+            color: #003366; /* 深蓝色文字 */
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .item img {
+            width: 140px;       /* 调大一点宽度，原来太扁了 */
+            height: 100px;      /* 调大一点高度 */
+            object-fit: cover;
+            border: 3px solid #fff;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .item a:hover img {
+            border-color: red; /* 鼠标经过红色边框 */
+        }
+
+        iframe {
+            width: 700px;       /* 下方大图区域的宽度 */
+            height: 450px;      /* 下方大图区域的高度 */
+            border: 4px solid #fff;
+            background: #fff;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>简易灯箱画廊设计</h1>
+
+    <!-- 图片滚动区：鼠标移入停止，移出继续 -->
+    <marquee class="gallery" direction="left" scrollamount="5" behavior="scroll"
+             onmouseover="this.stop()" onmouseout="this.start()">
+
+        <span class="item">
+            <span class="label">T1</span>
+            <a href="images/big1.jpg" target="showFrame">
+                <img src="images/t1.jpg" alt="T1">
+            </a>
+        </span>
+
+        <span class="item">
+            <span class="label">T2</span>
+            <a href="images/big2.jpg" target="showFrame">
+                <img src="images/t2.jpg" alt="T2">
+            </a>
+        </span>
+
+        <span class="item">
+            <span class="label">T3</span>
+            <a href="images/big3.jpg" target="showFrame">
+                <img src="images/t3.jpg" alt="T3">
+            </a>
+        </span>
+
+        <span class="item">
+            <span class="label">T4</span>
+            <a href="images/big4.jpg" target="showFrame">
+                <img src="images/t4.jpg" alt="T4">
+            </a>
+        </span>
+
+        <span class="item">
+            <span class="label">T5</span>
+            <a href="images/big5.jpg" target="showFrame">
+                <img src="images/t5.jpg" alt="T5">
+            </a>
+        </span>
+
+        <span class="item">
+            <span class="label">T6</span>
+            <a href="images/big6.jpg" target="showFrame">
+                <img src="images/t6.jpg" alt="T6">
+            </a>
+        </span>
+
+        <span class="item">
+            <span class="label">T7</span>
+            <a href="images/big7.jpg" target="showFrame">
+                <img src="images/t7.jpg" alt="T7">
+            </a>
+        </span>
+
+    </marquee>
+
+    <!-- 浮动框架：默认显示 T3 的大图 -->
+    <iframe name="showFrame" src="images/big3.jpg" title="大图显示区"></iframe>
+</body>
+</html>
